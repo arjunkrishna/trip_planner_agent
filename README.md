@@ -45,7 +45,13 @@ To experience the VacAIgent app:
 
 - **Launch the App**: Run `streamlit run streamlit_app.py` to start the Streamlit interface.
 
-★ **Disclaimer**: The application uses GPT-4 by default. Ensure you have access to OpenAI's API and be aware of the associated costs.
+- **Cleanup Steps**:
+
+  ```shell
+  poetry cache clear --all
+  poetry env remove python
+  poetry install
+  ```
 
 ## Details & Explanation
 
