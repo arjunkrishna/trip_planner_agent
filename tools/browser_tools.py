@@ -4,15 +4,17 @@ import requests
 import streamlit as st
 from crewai import Agent, Task
 from langchain.tools import tool
+from langchain_community.llms import Ollama
 from unstructured.partition.html import partition_html
 
+llm = Ollama(model="mistral")
 
 class BrowserTools():
 
   @tool("Scrape website content")
   def scrape_and_summarize_website(website):
-    """Useful to scrape and summarize a website content"""
-    url = f"https://chrome.browserless.io/content?token={st.secrets['BROWSERLESS_API_KEY']}"
+    """Useful to scrape and summarize a website content"""    
+    url = f"https://api.scrapingant.com/v2/general?x-api-key={st.secrets['SCRAPINGANT_API_KEY']}"
     payload = json.dumps({"url": website})
     headers = {'cache-control': 'no-cache', 'content-type': 'application/json'}
     response = requests.request("POST", url, headers=headers, data=payload)
@@ -23,6 +25,7 @@ class BrowserTools():
     for chunk in content:
       agent = Agent(
           role='Principal Researcher',
+          llm=llm,
           goal=
           'Do amazing researches and summaries based on the content you are working with',
           backstory=
