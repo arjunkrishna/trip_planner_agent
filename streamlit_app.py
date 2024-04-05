@@ -3,6 +3,7 @@ from trip_agents import TripAgents
 from trip_tasks import TripTasks
 import streamlit as st
 import datetime
+import schema
 
 st.set_page_config(page_icon="✈️", layout="wide")
 
