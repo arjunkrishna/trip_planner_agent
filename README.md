@@ -30,9 +30,19 @@ The introduction of [Streamlit](https://streamlit.io/) transforms this applicati
 
 To experience the VacAIgent app:
 
+
+
 - **Configure Environment**: Set up the environment variables for [ScrapingAnt](https://app.scrapingant.com/), [Serper](https://serper.dev/), and [Ollama](https://ollama.com/). Use the `secrets.example` as a guide to add your keys then move that file (`secrets.toml`) to `.streamlit/secrets.toml`.
 
-- **Install Dependencies**: Execute `pip install -r requirements.txt` in your terminal.
+- **Install Poetry** :
+```pip install poetry```
+
+- **Update packages** :
+```poetry install --no-root```
+
+- **Open Poetry Virtual Environment** :
+```poetry shell```
+
 - **Launch the App**: Run `streamlit run streamlit_app.py` to start the Streamlit interface.
 
 ★ **Disclaimer**: The application uses GPT-4 by default. Ensure you have access to OpenAI's API and be aware of the associated costs.
