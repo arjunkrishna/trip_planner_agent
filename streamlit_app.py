@@ -27,38 +27,41 @@ class PlanTripPage:
         self.interests = None
         self.submitted = None
 
-    def collect_data(self):
-
-        today = datetime.datetime.now().date()
-        next_year = today.year + 1
-        jan_16_next_year = datetime.date(next_year, 1, 10)
-
+    def display_form(self):
         with st.sidebar:
             st.header("👇 Enter your trip details")
             with st.form("my_form"):
                 self.location = st.text_input("Where are you currently located?", placeholder="San Mateo, CA")
                 self.cities = st.text_input("City and country are you interested in vacationing at?", placeholder="Bali, Indonesia")
-                self.date_range = st.date_input("Date range you are interested in traveling?", min_value=today, value=(today, jan_16_next_year + datetime.timedelta(days=6)), format="MM/DD/YYYY")
+                self.date_range = self.get_date_range_input()
                 self.interests = st.text_area("High level interests and hobbies or extra details about your trip?", placeholder="2 adults who love swimming, dancing, hiking, and eating")
                 self.submitted = st.form_submit_button("Submit")
 
+    def get_date_range_input(self):
+        today = datetime.datetime.now().date()
+        next_year = today.year + 1
+        jan_16_next_year = datetime.date(next_year, 1, 10)
+        return st.date_input("Date range you are interested in traveling?", min_value=today, value=(today, jan_16_next_year + datetime.timedelta(days=6)), format="MM/DD/YYYY")
+
     def process_data(self):
         if self.submitted:
-            with st.status("🤖 **Agents at work...**", state="running", expanded=True) as status:
-                with st.container(height=500, border=False):
-                    trip_crew = TripCrew(self.location, self.cities, self.date_range, self.interests)
-                    result = trip_crew.run()
-                status.update(label="✅ Trip Plan Ready!", state="complete", expanded=False)
+            self.run_trip_crew()
 
-            st.subheader("Here is your Trip Plan", anchor=False, divider="rainbow")
-            trip_crew.display_result(result)
-    
+    def run_trip_crew(self):
+        with st.status("🤖 **Agents at work...**", state="running", expanded=True) as status:
+            with st.container(height=500, border=False):
+                trip_crew = TripCrew(self.location, self.cities, self.date_range, self.interests)
+                result = trip_crew.run()
+            status.update(label="✅ Trip Plan Ready!", state="complete", expanded=False)
+
+        st.subheader("Here is your Trip Plan", anchor=False, divider="rainbow")
+        trip_crew.display_result(result)   
             
 
     def display(self):
         icon("🏖️ VacAIgent")
         st.subheader("Let AI agents plan your next vacation!", divider="rainbow", anchor=False)
-        self.collect_data()
+        self.display_form()
         self.process_data()
 
 class AboutPage:
