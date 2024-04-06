@@ -1,10 +1,10 @@
 from crewai import Crew
-from trip_agents import TripAgents
-from trip_tasks import TripTasks
+from features.trip.trip_agents import TripAgents
+from features.trip.trip_tasks import TripTasks
 import streamlit as st
 import datetime
 import schema
-from trip_details import TripDetails
+from features.trip.trip_details import TripDetails
 from home_page import HomePage
 
 

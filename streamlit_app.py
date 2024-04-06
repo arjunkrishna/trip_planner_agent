@@ -1,7 +1,7 @@
 import streamlit as st
 
 from home_page import HomePage
-from plan_trip_page import PlanTripPage
+from features.trip.plan_trip_page import PlanTripPage
 
 st.set_page_config(page_icon="✈️", layout="wide")
 
